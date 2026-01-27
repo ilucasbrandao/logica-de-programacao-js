@@ -1,0 +1,45 @@
+<!-- Aula sobre funções - Função Onclick - Ao clicar em um botão, uma função é executada -->>
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Função Onclick</title>
+</head>
+
+<body>
+    <h1>Função Onclick</h1>
+    <input type="number" id="number">
+    <button onclick="mostrarTabuada()">Mostrar Tabuada</button>
+    <button onclick="limparTabuada()">Limpar</button>
+
+    <div id="output">
+
+        <script>
+
+            const input = document.getElementById('number');
+            const output = document.getElementById('output');
+            let tabuadaHTML = '';
+
+            function mostrarTabuada() {
+                inputNumber = Number(input.value);
+                limparTabuada();
+
+                for (let i = 1; i <= 10; i++) {
+                    tabuadaHTML += ` ${inputNumber} x ${i} = ${inputNumber * i}<br>`;
+                }
+
+                output.innerHTML = tabuadaHTML
+            }
+
+            function limparTabuada() {
+                tabuadaHTML = '';
+                output.innerHTML = '';
+            }
+        </script>
+    </div>
+</body>
+
+</html>

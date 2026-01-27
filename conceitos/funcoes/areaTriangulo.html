@@ -1,0 +1,46 @@
+<!-- Aula 02 - Calculo da Área do Triângulo - Neste exemplo, ao clicar em um botão, uma função é executada para calcular a área do triângulo com base e altura fornecidas pelo usuário. -->
+
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Área do Triângulo</title>
+</head>
+
+<body>
+    <h1>Área do Triângulo</h1>
+
+    <input type="number" id="base" placeholder="Base do triângulo em m">
+    <input type="number" id="altura" placeholder="Altura do triângulo em m">
+    <button onclick="calcularArea()">Calcular a área</button>
+    <button onclick="limparCalculo()">Limpar</button>
+    <br>
+    <output id="output"></output>
+
+    <script>
+        const inputBase = document.getElementById('base');
+        const inputAltura = document.getElementById('altura');
+        const output = document.getElementById('output');
+
+        function calcularArea() {
+            const base = Number(inputBase.value);
+            const altura = Number(inputAltura.value);
+
+            const area = (base * altura) / 2;
+
+            output.innerHTML = `A área do triangulo com base ${base} m e altura ${altura} m é ${area} m².`;
+        }
+
+        function limparCalculo() {
+            inputBase.value = '';
+            inputAltura.value = '';
+            output.innerHTML = '';
+        }
+    </script>
+</body>
+
+
+</html>
