@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Área da Círculo com parâmetros</title>
+</head>
+
+<body>
+    <h1>Área da Círculo</h1>
+
+    <input type="number" id="raio" placeholder="Raio da circunferência em m">
+
+    <button onclick="mostrarAreaDoPrompt()">Calcular Area do Prompt</button>
+    <button onclick="mostrarAreaDoInput()">Clacular Area do Input</button>
+    <button onclick="limparDados()">Limpar</button>
+    <br>
+    <output id="output"></output>
+
+
+    <script>
+        const inputRaio = document.getElementById('raio');
+        const output = document.getElementById('output');
+
+        function mostrarAreaDoPrompt() {
+            const raio = Number(prompt('Digite o valor do raio: '));
+            calcularArea(raio)
+        }
+
+        function mostrarAreaDoInput() {
+            const raio = Number(inputRaio.value)
+            calcularArea(raio)
+        }
+
+        function calcularArea(raio) {
+            const area = Math.PI * Math.pow(raio, 2);
+            output.innerHTML = `A área da circunferencia do raio ${raio}m é ${area.toFixed(2)} m².`;
+
+        }
+
+        function limparDados() {
+            inputRaio.value = '';
+            output.innerHTML = '';
+        }
+    </script>
+</body>
+
+</html>

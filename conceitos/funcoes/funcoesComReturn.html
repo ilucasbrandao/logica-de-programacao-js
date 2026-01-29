@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funções com Return</title>
+</head>
+
+<body>
+    <h1>Funções com Return</h1>
+
+
+    <input type="number" id="raio">
+
+    <button onclick="areaDoPromptAlert()">Calcular área do Prompt e mostrar no alert</button>
+    <button onclick="areaDoInputAlert()">Calcular área do Input e mostrar no alert</button>
+    <button onclick="areaDoPromptOutput()">Calcular área do Prompt e mostrar no output</button>
+    <button onclick="areaDoInputOutput()">Calcular área do Input e mostrar no output</button>
+
+    <br>
+    <output id="output"></output>
+
+    <script>
+
+        const raio = document.getElementById('raio');
+        const output = document.getElementById('output');
+
+        function calcularArea(raio) {
+            const area = Math.PI * Math.pow(raio, 2);
+            return `A área da circunferência do raio ${raio}m é ${area.toFixed(3)}`
+        }
+
+        function areaDoPromptAlert() {
+            const raioValue = Number(prompt('Digite o valor do raio em m: '));
+            let resultado = calcularArea(raioValue);
+            alert(resultado);
+        }
+
+        function areaDoInputAlert() {
+            const raioValue = Number(raio.value);
+            let resultado = calcularArea(raioValue);
+            alert(resultado);
+        }
+
+        function areaDoPromptOutput() {
+            const raioValue = Number(prompt('Digite o valor do raio em m: '));
+            let resultado = calcularArea(raioValue)
+            output.innerHTML = resultado
+        }
+
+        function areaDoInputOutput() {
+            const raioValue = Number(raio.value);
+            let resultado = calcularArea(raioValue);
+            output.innerHTML = resultado
+        }
+
+    </script>
+</body>
+
+</html>
