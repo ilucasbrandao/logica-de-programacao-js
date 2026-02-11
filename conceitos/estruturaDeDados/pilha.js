@@ -1,14 +1,16 @@
 class Pilha {
   constructor(limit) {
+    // Verificar se o limite é um número positivo
     if (limit && limit <= 0) {
       throw new Error("Limit must be a positive number");
     }
-    this.stack = [];
+    this.stack = []; // Array para armazenar os elementos da pilha
     this.limit = limit || null; // Limite opcional para a pilha
   }
 
   // Adiciona no final
   push(newValue) {
+    // Verificar se a pilha atingiu o limite antes de adicionar um novo elemento
     if (this.limit !== null && this.stack.length >= this.limit) {
       throw new Error("Stack overflow: Cannot push to a full stack");
     }
@@ -17,17 +19,20 @@ class Pilha {
 
   // Retira do final
   pop() {
+    // Verificar se a pilha está vazia antes de tentar remover um elemento
     if (this.isEmpty()) throw new Error("Cannot pop from empty stack");
     return this.stack.pop();
   }
 
   // Lista Vazia
   isEmpty() {
+    // Retorna true se a pilha estiver vazia, caso contrário, retorna false
     return this.stack.length === 0;
   }
 
   // Espiar Pilha
   peek() {
+    // Verificar se a pilha está vazia antes de espiar o topo
     if (this.isEmpty()) {
       return null;
     }
@@ -36,11 +41,13 @@ class Pilha {
 
   // Limpa a Pilha
   clear() {
+    // Limpa todos os elementos da pilha
     this.stack.length = 0;
   }
 
   // Obter o tamanho da Pilha
   get sizeOfStack() {
+    // Retorna o número de elementos atualmente na pilha
     return this.stack.length;
   }
 }
