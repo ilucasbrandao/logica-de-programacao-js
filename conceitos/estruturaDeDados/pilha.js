@@ -24,6 +24,43 @@ class Pilha {
     return this.stack.pop();
   }
 
+  // Inverte a palavra
+  invertePalavra(texto) {
+    if (!texto || typeof texto !== "string") {
+      throw new Error("Digite um texto válido");
+    }
+    const pilha = new Pilha(texto.length);
+    let resultado = "";
+    for (let letra of texto) {
+      pilha.push(letra);
+    }
+    while (!pilha.isEmpty()) {
+      resultado += pilha.pop();
+    }
+
+    return resultado;
+  }
+
+  verificarParenteses(expressao) {
+    const pilha = new Pilha(expressao.length);
+
+    try {
+      for (let char of expressao) {
+        if (char === "(") {
+          pilha.push("(");
+          console.log("( adicionado");
+        } else if (char === ")") {
+          pilha.pop();
+        }
+        return pilha.isEmpty()
+          ? "Expressão Correta!"
+          : "Erro: há parenteses abertos";
+      }
+    } catch (error) {
+      return "Erro: Você fechou um parêntese que não abriu!";
+    }
+  }
+
   // Lista Vazia
   isEmpty() {
     // Retorna true se a pilha estiver vazia, caso contrário, retorna false
@@ -76,3 +113,5 @@ myStack.clear();
 console.log("Tamanho da pilha após limpar:", myStack.sizeOfStack);
 console.log("Minha pilha está vazia?", myStack.isEmpty());
 console.log("Pilha final:", myStack);
+console.log(myStack.invertePalavra("LOGICA"));
+console.log(myStack.verificarParenteses("(5 + 3) * 5"));
