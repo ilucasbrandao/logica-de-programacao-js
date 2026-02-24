@@ -17,14 +17,33 @@ class LinkedList {
     const newNode = new Node(value);
 
     if (this.head === null) {
+      // se o head for nulo, significa que a lista está vazia, então o novo nó se torna o head e o tail
       this.head = newNode;
       this.tail = newNode;
     } else {
+      // caso contrário, o novo nó é adicionado ao final da lista, e o tail é atualizado para apontar para o novo nó
       const last = this.tail;
       last.next = newNode;
       this.tail = newNode;
     }
     this.#size++;
+  }
+
+  prepend(value) {
+    const newNode = new Node(value);
+
+    if (this.head === null) {
+      this.head = newNode;
+      this.tail = newNode;
+    } else {
+      newNode.next = this.head;
+
+      if (this.#size === 0) {
+        this.tail = newNode;
+      }
+      this.head = newNode;
+      this.#size++;
+    }
   }
 
   remove() {
@@ -104,10 +123,15 @@ class LinkedList {
 
     console.log(`${result} --- Size: ${this.#size}`);
   }
+
+  isEmpty() {
+    return this.head === null;
+  }
 }
 
 const list = new LinkedList();
 
+list.prepend(3);
 list.append(10);
 list.append(20);
 list.append(30);
