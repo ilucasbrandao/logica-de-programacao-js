@@ -13,6 +13,7 @@ class LinkedList {
     this.#size = 0;
   }
 
+  // método para adicionar um novo nó ao final da lista
   append(value) {
     const newNode = new Node(value);
 
@@ -29,23 +30,48 @@ class LinkedList {
     this.#size++;
   }
 
+  // método para adicionar um novo nó no início da lista
   prepend(value) {
-    const newNode = new Node(value);
+    const node = new Node(value);
 
     if (this.head === null) {
-      this.head = newNode;
-      this.tail = newNode;
+      this.head = node;
+      this.tail = node;
     } else {
-      newNode.next = this.head;
+      node.next = this.head;
 
       if (this.#size === 0) {
-        this.tail = newNode;
+        this.tail = node;
       }
-      this.head = newNode;
+      this.head = node;
       this.#size++;
     }
   }
 
+  // método para inserir um novo nó em uma posição específica da lista
+  insertAt(position, value) {
+    if (position >= 0 && position <= this.#size) {
+      if (position === 0) {
+        return this.prepend(value);
+      }
+      if (position === this.#size) {
+        return this.append(value);
+      }
+    }
+    const newNode = new Node(value);
+    let current = this.head;
+    let previous = null;
+
+    for (let i = 0; i < position; i++) {
+      previous = current;
+      current = current.next;
+    }
+    newNode.next = current;
+    previous.next = newNode;
+    this.#size++;
+  }
+
+  // método para remover um nó específico da lista
   remove() {
     let current = this.head;
     let previous = null;
@@ -71,31 +97,57 @@ class LinkedList {
     current = current.next;
   }
 
+  // método para remover o último nó da lista
   pop() {
     if (this.tail) {
       const last = this.tail;
       const value = last.value;
 
       if (this.#size === 1) {
-        this.head;
+        this.head = null;
+        this.tail = null;
+        this.#size--;
+        return value;
       }
     }
 
     let current = this.head;
-    let prev = null;
+    let previous = null;
 
     while (current !== last) {
-      prev = current;
+      previous = current;
       current = current.next;
     }
 
-    prev.next = null;
-    this.tail = prev;
+    previous.next = null;
+    this.tail = previous;
     this.#size--;
 
     return value;
   }
 
+  // método para remover o primeiro nó da lista
+  shift() {
+    if (this.head) {
+      const first = this.head;
+      const value = first.value;
+      const next = first.next;
+
+      if (this.#size === 1) {
+        this.tail = null;
+        this.head = null;
+        this.#size--;
+        return value;
+      }
+
+      first.next = null;
+      this.head = next;
+      this.#size--;
+      return value;
+    }
+  }
+
+  // método para reverter a ordem dos nós na lista
   reverse() {
     let current = this.head;
     let previous = null;
@@ -135,6 +187,6 @@ list.prepend(3);
 list.append(10);
 list.append(20);
 list.append(30);
-list.print(); // 10 --> 20 --> 30
-list.reverse();
-list.print(); // 30 --> 20 --> 10
+list.print();
+list.insertAt(4, 15);
+list.print();
