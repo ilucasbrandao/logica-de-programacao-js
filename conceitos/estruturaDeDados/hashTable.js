@@ -7,42 +7,42 @@ class HashNode {
 }
 
 class LinkedList {
-  #size;
   constructor() {
     this.head = null;
     this.tail = null;
-    this.#size = 0;
+    this.size = 0;
   }
 
-  // adiciona um elemento no final da lista
   append(key, value, replace) {
+    // Verificar se a chave já existe
     let current = this.head;
     while (current) {
       if (current.key === key) {
         if (replace) {
           current.value = value;
         } else {
-          throw new Error(`Key ${key} already exists in the list`);
+          throw Error("Key already exist");
         }
-        return;
+        return false;
       }
       current = current.next;
     }
-    const newNode = new HashNode(key, value);
+
+    // Se a chave não existir, criar um novo nó e adicioná-lo à lista
+    const hash = new HashNode(key, value);
 
     if (this.head === null) {
-      // adicionando o primeiro elemento na lista
-      this.head = newNode;
-      this.tail = newNode;
+      this.head = hash;
+      this.tail = hash;
     } else {
-      const last = this.tail; // se não for o primeiro na lista
-      last.next = newNode;
-      this.tail = newNode;
+      const last = this.tail;
+      last.next = hash;
+      this.tail = hash;
     }
-    this.#size++;
+    this.size++;
+    return true;
   }
 
-  // pega um elemento da lista pelo seu índice
   getByKey(key) {
     let current = this.head;
 
@@ -52,70 +52,50 @@ class LinkedList {
       }
       current = current.next;
     }
-
-    return false;
+    return undefined;
   }
 
-  // remove um elemento da lista
   remove(key) {
     let current = this.head;
-    let prev = null;
+    let previous = null;
 
     while (current) {
       if (current.key === key) {
-        if (prev) {
-          prev.next = current.next;
-          if (current === this.tail) {
-            this.tail = prev;
-          }
+        if (previous) {
+          previous.next = current.next;
           current.next = null;
         } else {
           this.head = current.next;
-          if (current === this.tail) {
-            this.tail = null;
-          }
           current.next = null;
         }
-        if (current === this.tail) {
-          this.tail = prev;
-        }
-        this.#size--;
+        this.size--;
         return true;
       }
-      prev = current;
+      previous = current;
       current = current.next;
     }
     return false;
   }
 
-  // retorna true se a lista estiver vazia
   isEmpty() {
-    return this.head === null;
+    return this.size;
   }
 
-  // método para retornar o tamanho da lista
-  get size() {
-    return this.#size;
-  }
-
-  // método para imprimir a lista
   print() {
     let current = this.head;
     let result = "";
-
     while (current) {
-      result += `${current.value} --> `;
+      result += `${current.value} ---> `;
       current = current.next;
     }
 
-    console.log(`${result} --- Size: ${this.#size}`);
+    console.log(result);
   }
 }
 
 class HashTable {
-  #size;
   constructor(maxSize) {
-    this.#size = 0;
+    this.size = 0;
     this.table = [];
     this.max = maxSize;
   }
@@ -128,10 +108,25 @@ class HashTable {
     }
     return hashValue % this.max;
   }
-}
 
-const list = new LinkedList();
-list.append("nome", "João", false);
-list.append("idade", 25, false);
-list.print(); // Saída: João --> 25 -->  --- Size: 2
-console.log(list.getByKey("nome")); // Saída: João
+  insert(key, value) {
+    const index = this.hash(key);
+
+    if (this.table[index] === undefined) {
+      this.table[index] = new LinkedList();
+    }
+
+    const result = this.table[index].append(key, value);
+    if (result) this.size++;
+  }
+
+  get(key) {
+    const index = this.hash(key);
+
+    if (this.table[index] !== undefined) {
+      return this.table[index].getByKey(KEY);
+    }
+
+    return undefined;
+  }
+}
