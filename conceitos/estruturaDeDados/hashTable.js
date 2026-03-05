@@ -109,14 +109,14 @@ class HashTable {
     return hashValue % this.max;
   }
 
-  insert(key, value) {
+  insert(key, value, replace) {
     const index = this.hash(key);
 
     if (this.table[index] === undefined) {
       this.table[index] = new LinkedList();
     }
 
-    const result = this.table[index].append(key, value);
+    const result = this.table[index].append(key, value, replace);
     if (result) this.size++;
   }
 
@@ -124,9 +124,37 @@ class HashTable {
     const index = this.hash(key);
 
     if (this.table[index] !== undefined) {
-      return this.table[index].getByKey(KEY);
+      return this.table[index].getByKey(key);
     }
 
     return undefined;
   }
+
+  remove(key) {
+    const index = this.hash(key);
+
+    if (this.table[index] !== undefined) {
+      const result = this.table[index].remove(key);
+
+      if (result) {
+        this.size--;
+        if (this.table[index].isEmpty()) {
+          this.table[index] = undefined;
+        }
+      }
+      return result;
+    }
+    return false; // chave não encontrada
+  }
 }
+
+const table = new HashTable(97);
+
+table.insert("lucasbrandao@email.com", "Lucas Brandão");
+console.log(table);
+console.log(table.get("lucasbrandao@email.com"));
+table.insert("lucasbrandao@email.com", "Lucas de Sousa Brandão", true);
+console.log(table.get("lucasbrandao@email.com"));
+console.log(table.remove("lucasbrandao@email.com"));
+console.log(table.remove("lucasbrandao@gmail.com"));
+console.log(table.get("lucasbrandao@email.com"));
