@@ -1,18 +1,18 @@
-function razaoProgressaoGeometrica(a, b) {
-  let getPG = 1; // Variável para armazenar o resultado da progressão geométrica
-
-  if (a > b) {
-    return "O valor de a deve ser menor ou igual ao valor de b.";
-  }
-
-  if (a <= 0 || b <= 0) {
-    return "Os valores de a e b devem ser positivos.";
-  }
-
-  // Cálculo da progressão geométrica
-  getPG = Math.pow(a, b - a + 1);
-
-  return getPG;
+function getPG(razão, limite, n = 1) {
+  return n * razão < limite ? getPG(razão, limite, n * razão) : n;
 }
 
-console.log(razaoProgressaoGeometrica(2, 35));
+let count = 0;
+function getPGEsp(razao, sequencia) {
+  let result = 1;
+  console.log(result);
+  for (let i = 1; i <= sequencia; i++) {
+    result *= razao;
+    count++;
+    console.log(result);
+  }
+  return result;
+}
+
+console.log(getPGEsp(2, 5));
+console.log(count);
