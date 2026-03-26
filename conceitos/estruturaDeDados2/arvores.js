@@ -12,7 +12,7 @@ class BinarySearchTree {
   }
 
   insert(key) {
-    const newNode = new Node();
+    const newNode = new Node(key);
 
     if (this.root === null) {
       this.root = newNode;
@@ -36,11 +36,28 @@ class BinarySearchTree {
       }
     }
   }
+
+  search(key) {
+    return this.#searchNode(this.root, key);
+  }
+
+  #searchNode(node, key) {
+    if (node === null) {
+      return false;
+    }
+    if (key < node.key) {
+      return this.#searchNode(node.left, key);
+    } else if (key > node.key) {
+      return this.#searchNode(node.right, key);
+    } else {
+      return true;
+    }
+  }
 }
 
 const bst = new BinarySearchTree();
 bst.insert(20);
 bst.insert(15);
-bst.insert(18);
-
+bst.insert(30);
 console.log(bst);
+console.log(bst.search(15));
